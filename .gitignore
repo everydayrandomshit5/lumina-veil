@@ -1,0 +1,12 @@
+# Godot 4 cache & imports
+.godot/
+
+# Binaries exceeding GitHub commit limit (included in GitHub Releases instead)
+build/*.exe
+
+# OS / Temporary files
+.DS_Store
+Thumbs.db
+*.tmp
+
+*.zip

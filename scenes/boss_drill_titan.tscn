@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdtitan01"]
+
+[ext_resource type="Script" path="res://scripts/boss_drill_titan.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/boss_drill_titan.png" id="2_texture"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_boss"]
+size = Vector2(76, 56)
+
+[node name="BossDrillTitan" type="Area2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_texture")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_boss")

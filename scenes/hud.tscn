@@ -1,0 +1,397 @@
+[gd_scene load_steps=10 format=3 uid="uid://c54h82hudmain"]
+
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/aria_hud_neutral.png" id="2_portrait"]
+[ext_resource type="Texture2D" path="res://assets/sprites/aria_burst_cutin.png" id="3_cutin"]
+[ext_resource type="Texture2D" path="res://assets/sprites/aria_victory_pinup.png" id="4_victory"]
+[ext_resource type="Shader" path="res://shaders/crt_scanlines.gdshader" id="5_shader"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp"]
+bg_color = Color(0.9, 0.1, 0.3, 0.85)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dialogue"]
+bg_color = Color(0.06, 0.08, 0.14, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.9, 0.3, 0.7, 0.8)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.06, 0.04, 0.12, 0.92)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.9, 0.3, 0.7, 0.8)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_crt"]
+shader = ExtResource("5_shader")
+shader_parameter/aberration = 0.001
+shader_parameter/scanline_count = 200.0
+shader_parameter/scanline_intensity = 0.12
+shader_parameter/vignette_intensity = 0.25
+
+[node name="HUD" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_script")
+
+[node name="TopLeft" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 160.0
+offset_bottom = 50.0
+
+[node name="VBox" type="VBoxContainer" parent="TopLeft"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HPBar" type="ProgressBar" parent="TopLeft/VBox"]
+custom_minimum_size = Vector2(140, 10)
+layout_mode = 2
+value = 100.0
+show_percentage = false
+
+[node name="ShieldBar" type="ProgressBar" parent="TopLeft/VBox"]
+custom_minimum_size = Vector2(140, 8)
+layout_mode = 2
+value = 50.0
+show_percentage = false
+
+[node name="TopCenter" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 10.0
+offset_right = 100.0
+offset_bottom = 35.0
+grow_horizontal = 2
+
+[node name="ScoreLabel" type="Label" parent="TopCenter"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "SCORE: 0000000"
+horizontal_alignment = 1
+
+[node name="PortraitBox" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -70.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 70.0
+grow_horizontal = 0
+
+[node name="PortraitTexture" type="TextureRect" parent="PortraitBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_portrait")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BottomCenter" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -140.0
+offset_top = -42.0
+offset_right = 140.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="CharmVBox" type="VBoxContainer" parent="BottomCenter"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StatusLabel" type="Label" parent="BottomCenter/CharmVBox"]
+layout_mode = 2
+text = "CHARM GAUGE: 0%"
+horizontal_alignment = 1
+
+[node name="CharmBar" type="ProgressBar" parent="BottomCenter/CharmVBox"]
+custom_minimum_size = Vector2(280, 10)
+layout_mode = 2
+value = 0.0
+show_percentage = false
+
+[node name="DialogueContainer" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -220.0
+offset_top = -85.0
+offset_right = 220.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dialogue")
+
+[node name="MarginContainer" type="MarginContainer" parent="DialogueContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 4
+
+[node name="DialogueLabel" type="Label" parent="DialogueContainer/MarginContainer"]
+layout_mode = 2
+text = "Aria Solara incoming transmission..."
+horizontal_alignment = 1
+
+[node name="BossContainer" type="VBoxContainer" parent="."]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -160.0
+offset_top = 40.0
+offset_right = 160.0
+offset_bottom = 75.0
+grow_horizontal = 2
+
+[node name="BossName" type="Label" parent="BossContainer"]
+layout_mode = 2
+text = "WARNING: BOSS ENCOUNTER"
+horizontal_alignment = 1
+
+[node name="BossHPBar" type="ProgressBar" parent="BossContainer"]
+custom_minimum_size = Vector2(320, 12)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_hp")
+value = 100.0
+show_percentage = false
+
+[node name="BurstCutinOverlay" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="BurstCutinOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.8, 0.1, 0.5, 0.25)
+
+[node name="BurstPortrait" type="TextureRect" parent="BurstCutinOverlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -160.0
+offset_right = 140.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_cutin")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BurstLabel" type="Label" parent="BurstCutinOverlay"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -60.0
+offset_right = 200.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "★ TEMPTATION BURST ACTIVATED! ★"
+horizontal_alignment = 1
+
+[node name="PausePanel" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = -80.0
+offset_right = 110.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="PausePanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="PausePanel/VBox"]
+layout_mode = 2
+text = "MISSION PAUSED"
+horizontal_alignment = 1
+
+[node name="ResumeBtn" type="Button" parent="PausePanel/VBox"]
+layout_mode = 2
+text = "RESUME"
+
+[node name="RestartBtn" type="Button" parent="PausePanel/VBox"]
+layout_mode = 2
+text = "RESTART MISSION"
+
+[node name="TitleBtn" type="Button" parent="PausePanel/VBox"]
+layout_mode = 2
+text = "RETURN TO TITLE"
+
+[node name="VictoryPanel" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 20.0
+offset_right = -30.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="ContentHBox" type="HBoxContainer" parent="VictoryPanel"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="PinupFrame" type="Control" parent="VictoryPanel/ContentHBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="VictoryTexture" type="TextureRect" parent="VictoryPanel/ContentHBox/PinupFrame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_victory")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBox" type="VBoxContainer" parent="VictoryPanel/ContentHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="VictoryPanel/ContentHBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.4, 0.8, 1)
+theme_override_font_sizes/font_size = 18
+text = "SECTOR 1 CLEARED!"
+
+[node name="AriaQuote" type="Label" parent="VictoryPanel/ContentHBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.9, 1, 1)
+text = "Aria: \"Target destroyed! Nice shooting, partner~\""
+
+[node name="ScoreTally" type="Label" parent="VictoryPanel/ContentHBox/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "MISSION SCORE: 0005000\nCLEAR BONUS: +0005000"
+
+[node name="ContinueBtn" type="Button" parent="VictoryPanel/ContentHBox/VBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+text = "PROCEED TO SECTOR 2 ▶"
+
+[node name="GameOverPanel" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -70.0
+offset_right = 120.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="GameOverPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="GameOverPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.2, 0.3, 1)
+text = "MISSION FAILED"
+horizontal_alignment = 1
+
+[node name="RetryBtn" type="Button" parent="GameOverPanel/VBox"]
+layout_mode = 2
+text = "RE-DEPLOY (RESTART)"
+
+[node name="TitleBtn" type="Button" parent="GameOverPanel/VBox"]
+layout_mode = 2
+text = "TITLE MENU"
+
+[node name="CRTOverlay" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_crt")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="pressed" from="PausePanel/VBox/ResumeBtn" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="PausePanel/VBox/RestartBtn" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="PausePanel/VBox/TitleBtn" to="." method="_on_title_menu_pressed"]
+[connection signal="pressed" from="VictoryPanel/ContentHBox/VBox/ContinueBtn" to="." method="_on_victory_continue_pressed"]
+[connection signal="pressed" from="GameOverPanel/VBox/RetryBtn" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="GameOverPanel/VBox/TitleBtn" to="." method="_on_title_menu_pressed"]
