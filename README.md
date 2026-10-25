@@ -12,6 +12,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
   <a href="https://godotengine.org/"><img src="https://img.shields.io/badge/engine-Godot_4.x-478cbf.svg" alt="Godot Engine 4"></a>
   <a href="https://github.com/everydayrandomshit5"><img src="https://img.shields.io/badge/author-Random_Guy-ff69b4.svg" alt="Author: Random Guy"></a>
+  <a href="#-ai-transparency--disclosure"><img src="https://img.shields.io/badge/built%20with-AI%20Assistance-blueviolet.svg" alt="AI Assisted"></a>
 </p>
 
 ---
@@ -95,6 +96,16 @@ lumina-veil/
     ├── sprites/                # 16-bit pixel sprites & character art
     └── audio/                  # Synthesized 16-bit chiptune sound effects & BGM
 ```
+
+---
+
+## 🤖 AI Transparency & Disclosure
+
+In the interest of full creative and technical transparency, this project was created using Generative AI assistance:
+- **Game Architecture & Engine Code**: Built in Godot 4 (GDScript) with the pair-programming assistance of agentic AI coding tools (Google Antigravity).
+- **Character Concept Art & Story CGs**: Generated with generative AI image tooling (Grok / xAI Imagine) based on original character specifications from the project Game Design Document.
+- **Audio & SFX**: Procedural 16-bit retro chiptune audio synthesized with custom Python DSP scripts.
+- **Creative Direction & Production**: Conceived, directed, iterated, and published by [Random Guy](https://github.com/everydayrandomshit5).
 
 ---
 
