@@ -22,7 +22,7 @@ var artworks = [
 		"desc": "Lead ace pilot of the Veil Fleet. Full-body uniform pose showcasing the white and magenta suit with strategic sideboob/underboob cutouts, exposed midriff, high-slit skirt, and thigh-high stockings with garter straps."
 	},
 	{
-		"path": "res://assets/sprites/aria_action_ecchi.png",
+		"path": "res://assets/sprites/aria_action.png",
 		"title": "[ARIA SOLARA] Cockpit Action Battle Pose",
 		"desc": "High-intensity cockpit battle illustration under neon planetary lighting. Used as the in-game Temptation Burst special attack cut-in."
 	},

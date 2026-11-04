@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <b>A retro 2D side-scrolling space shooter with 16-bit arcade aesthetics, ecchi anime character art, multi-layer parallax space nebulae, modular weapons, and dynamic story cut-ins.</b>
+  <b>A retro 2D side-scrolling space shooter with 16-bit arcade aesthetics, anime character art, multi-layer parallax space nebulae, modular weapons, and dynamic story cut-ins.</b>
 </p>
 
 <p align="center">
